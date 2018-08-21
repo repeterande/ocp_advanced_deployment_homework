@@ -11,9 +11,11 @@
     - name: docker restart
       shell: systemctl restart docker
 
-- name: Verify NFS Shared Volumes on Hosts
-  hosts: nfs
-  tasks:
+#- name: Verify NFS Shared Volumes on Hosts
+#  hosts: nfs
+#  tasks:
+#    - name: "Create PVs"
+#      script: /root/ocp_advanced_deployment_homework/scripts/create_pvs.sh
 
 #- name: Install packages and config auth
 #  hosts: localhost
@@ -56,16 +58,19 @@
     - name: make sure you are system:dmin
       shell: oc whoami | grep system:admin
 
-#- name: Create PVs for Users
-#  hosts: nfs
-#  tasks:
-#    - name:
-#      script: ????
-#    - name: Restarting NFS Server...
-#      shell: systemctl restart nfs-server
+- name: Create PVs for Users
+  hosts: nfs
+  tasks:
+    - name: "Create PV directories and add them to be exported"
+      script: ./scripts/create_pvs.sh
+    - name: Restarting NFS Server...
+      shell: systemctl restart nfs-server
+  tags:
+    - nfs
 
-- name: Create 25 definitions files for PVs 5G size
-  hosts: localhost
+#- name: Create 25 definitions files for PVs 5G size
+#  hosts: localhost
+  
 
 - name: Create 25 definitions files for PVs 10G size
 
