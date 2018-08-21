@@ -14,18 +14,8 @@
 #- name: Verify NFS Shared Volumes on Hosts
 #  hosts: nfs
 #  tasks:
-#    - name: "Create PVs"
+#    - name: "Verify PVs"
 #      script: /root/ocp_advanced_deployment_homework/scripts/create_pvs.sh
-
-#- name: Install packages and config auth
-#  hosts: localhost
-#  tasks:
-#    - name: required packages are present
-#      yum:
-#        name:
-#          - ????
-#          - ????
-#        state: present
 
 - name: Generate Inventory Hosts File
   hosts: localhost
@@ -68,13 +58,17 @@
   tags:
     - nfs
 
-#- name: Create 25 definitions files for PVs 5G size
-#  hosts: localhost
+- name: Create 25 definitions files for PVs 5G size
+  hosts: localhost
+  script: ./scripts/pvs_5Gsize.sh
   
-
 - name: Create 25 definitions files for PVs 10G size
+  hosts: localhost
+  script: ./scripts/pvs_10Gsize.sh
 
 - name: Create all PVs from definitions files
+  hosts: localhost
+  shell: "cat /root/pvs/*.yml | oc create -f -"
 
 - name: Fix NFS Persistent Volume Recycling
   hosts: nodes
@@ -85,12 +79,6 @@
       shell: docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30
 
 - name: Smoke Test
-
-#- name: Jenkins Setup
-#  hosts: localhost
-#  tasks:
-#    - name: jenkins setup
-#      script: ???
 
 - name: HPA configuration on production deployment of openshift-tasks
   hosts: localhost
