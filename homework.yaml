@@ -25,13 +25,9 @@
 
 - name: Execute the openshift-ansible prerequisites
   import_playbook: /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
-  tags:
-    - install
 
 - name: Execute the openshift-ansible Deployer
   import_playbook: /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
-  tags:
-    - install
 
 - name: Verify OpenShift Cluster
   hosts: masters[0]
@@ -68,14 +64,14 @@
 
 - name: Create all PVs from definitions files
   hosts: localhost
-  shell: "cat /root/pvs/*.yml | oc create -f -"
+  shell: "cat /root/pvs/* | oc create -f -"
 
 - name: Fix NFS Persistent Volume Recycling
   hosts: nodes
   tasks:
     - name: "pull the recycler image"
       shell: docker pull registry.access.redhat.com/openshift3/ose-recycler:latest
-    - name "tag the recycler image for specific version"
+    - name: "tag the recycler image for specific version"
       shell: docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30
 
 - name: Smoke Test
