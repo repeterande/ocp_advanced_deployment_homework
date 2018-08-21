@@ -16,4 +16,6 @@ deployed properly.
 Good luck!  And try to have fun!
 
 
+Run the following command to execute the homework.yaml playbook:
 
+ansible-playbook ./homework.yaml
