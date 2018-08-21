@@ -77,6 +77,12 @@
 - name: Create all PVs from definitions files
 
 - name: Fix NFS Persistent Volume Recycling
+  hosts: nodes
+  tasks:
+    - name: "pull the recycler image"
+      shell: docker pull registry.access.redhat.com/openshift3/ose-recycler:latest
+    - name "tag the recycler image for specific version"
+      shell: docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30
 
 - name: Smoke Test
 
