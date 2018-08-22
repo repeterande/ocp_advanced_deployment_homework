@@ -82,12 +82,13 @@
   tags:
     - fixnfs
 
-- name: Checkout CI/CD code
+- name: Setup CI/CD pipeline
   hosts: localhost
-  - git:
-    repo: 'https://github.com/repeterande/openshift-cd-demo.git'
-    dest: /root/openshift-cd-demo
-    version: ocp-3.9
+  tasks:
+    - git:
+        repo: 'https://github.com/repeterande/openshift-cd-demo.git'
+        dest: /root/openshift-cd-demo
+        version: ocp-3.9
   tags:
     - cicd
 
