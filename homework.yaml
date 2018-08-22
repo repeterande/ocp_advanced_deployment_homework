@@ -85,10 +85,13 @@
 - name: Setup CI/CD pipeline
   hosts: localhost
   tasks:
-    - git:
+    - name: Checkout CI/CD demo code..
+      git:
         repo: 'https://github.com/repeterande/openshift-cd-demo.git'
         dest: /root/openshift-cd-demo
         version: ocp-3.9
+    - name: Provision the demo environment..
+      shell: /root/openshift-cd-demo/scripts/provision.sh deploy
   tags:
     - cicd
 
