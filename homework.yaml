@@ -82,6 +82,15 @@
   tags:
     - fixnfs
 
+- name: Checkout CI/CD code
+  hosts: localhost
+  - git:
+    repo: 'https://github.com/repeterande/openshift-cd-demo.git'
+    dest: /root/openshift-cd-demo
+    version: ocp-3.9
+  tags:
+    - cicd
+
 #- name: Smoke Test
 
 #- name: HPA configuration on production deployment of openshift-tasks
