@@ -79,16 +79,18 @@
       shell: docker pull registry.access.redhat.com/openshift3/ose-recycler:latest
     - name: "tag the recycler image for specific version"
       shell: docker tag registry.access.redhat.com/openshift3/ose-recycler:latest registry.access.redhat.com/openshift3/ose-recycler:v3.9.30
+  tags:
+    - fixnfs
 
-- name: Smoke Test
+#- name: Smoke Test
 
-- name: HPA configuration on production deployment of openshift-tasks
-  hosts: localhost
-  tasks:
+#- name: HPA configuration on production deployment of openshift-tasks
+#  hosts: localhost
+#  tasks:
 
-- name: Creation of users for Alpha and Beta clients
+#- name: Creation of users for Alpha and Beta clients
 
-- name: Assigning labels to the users according to its group
+#- name: Assigning labels to the users according to its group
 
-- name: Setup the environment for Alpha and Beta clients
+#- name: Setup the environment for Alpha and Beta clients
 
