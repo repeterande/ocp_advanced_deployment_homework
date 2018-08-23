@@ -30,7 +30,10 @@ openshift_master_cluster_public_hostname=loadbalancer.5517.example.opentlc.com
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 openshift_master_htpasswd_file=/root/htpasswd.openshift
 
+# default project node selector
+#osm_default_node_selector='client=common'
 
+# selector for hosted infra resources
 openshift_hosted_infra_selector="env=infra"
 
 os_sdn_network_plugin_name=redhat/openshift-ovs-networkpolicy

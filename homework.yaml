@@ -11,12 +11,6 @@
     - name: docker restart
       shell: systemctl restart docker
 
-#- name: Verify NFS Shared Volumes on Hosts
-#  hosts: nfs
-#  tasks:
-#    - name: "Verify PVs"
-#      script: /root/ocp_advanced_deployment_homework/scripts/create_pvs.sh
-
 - name: Generate Inventory Hosts File
   hosts: localhost
   tasks:
@@ -119,7 +113,15 @@
   tags:
     - fixtemplate
 
-#- name: Smoke Test
+- name: Smoke Test
+  hosts: localhost
+  tasks:
+    - name: Create the smoke-test project
+      shell: oc new-project smoke-test
+    - name: Deploy the test app
+      shell: oc new-app --namespace smoke-test nodejs-mongo-persistent 
+  tags:
+    - smoke-test
 
 - name: HPA configuration on production deployment of openshift-tasks
   hosts: localhost
@@ -129,7 +131,47 @@
   tags:
     - hpa
 
-#- name: Creation of users for Alpha and Beta clients
+- name: Creation of projects for Alpha and Beta clients
+  hosts: localhost
+  tasks:
+    - name: Create alpha project
+      shell: oc adm new-project alpha
+    - name: Create beta project
+      shell: oc new-project beta
+  tags:
+    - create_projects
+
+#- name: "Add user to htpasswd file"
+#  hosts: masters
+#  htpasswd:
+#    dest: "/etc/origin/master/htpasswd"
+#    name: "user{{ username }}"
+#    password: "r3dh4t1!"
+#    state: present
+##  when: username.defined
+#  tags: 
+#    - add_user
+
+
+- name: Generic task to add new users
+  hosts: masters
+  tasks:
+    - name: "Add user {{ username }}"
+      shell: htpasswd -b /etc/origin/master/htpasswd {{ username }} {{ password }} 
+#  when: 
+#    - username.defined 
+#    - password.defined
+  ignore_errors: true
+  tags:
+    - add_user
+
+- name: Creation of users for Alpha and Beta clients
+  hosts: masters
+  tasks:
+    - name: Adding users for alpha and beta
+      script: ./scripts/add_users_alpha_beta.sh
+  tags:
+    - create_users
 
 #- name: Assigning labels to the users according to its group
 
