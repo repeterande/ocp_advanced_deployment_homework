@@ -168,9 +168,9 @@ infranode1.5517.internal openshift_hostname=infranode1.5517.internal  openshift_
 infranode2.5517.internal openshift_hostname=infranode2.5517.internal  openshift_node_labels="{'logging': 'true', 'env':'infra', 'cluster': '5517'}"
 
 ## These are regular nodes
-node1.5517.internal openshift_hostname=node1.5517.internal  openshift_node_labels="{'logging': 'true', 'env':'app', 'cluster': '5517'}"
-node2.5517.internal openshift_hostname=node2.5517.internal  openshift_node_labels="{'logging': 'true', 'env':'app', 'cluster': '5517'}"
-node3.5517.internal openshift_hostname=node3.5517.internal  openshift_node_labels="{'logging': 'true', 'env':'app', 'cluster': '5517'}"
+node1.5517.internal openshift_hostname=node1.5517.internal  openshift_node_labels="{'logging': 'true', 'client':'alpha', 'cluster': '5517'}"
+node2.5517.internal openshift_hostname=node2.5517.internal  openshift_node_labels="{'logging': 'true', 'client':'beta', 'cluster': '5517'}"
+node3.5517.internal openshift_hostname=node3.5517.internal  openshift_node_labels="{'logging': 'true', 'client':'common', 'cluster': '5517'}"
 
 ## These are CNS nodes
 # support1.5517.internal openshift_hostname=support1.5517.internal  openshift_node_labels="{'env':'glusterfs', 'cluster': '5517'}"

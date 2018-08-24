@@ -76,6 +76,10 @@
   tags:
     - fixnfs
 
+
+- name: Create a user for the CI/CD demo
+  shell: htpasswd -b /root/htpasswd.openshift cicddemo r3dh4t1!
+
 - name: Setup CI/CD pipeline
   hosts: localhost
   tasks:
@@ -85,7 +89,7 @@
         dest: /root/openshift-cd-demo
         version: ocp-3.9
     - name: Provision the demo environment..
-      shell: /root/openshift-cd-demo/scripts/provision.sh --user andrew deploy
+      shell: /root/openshift-cd-demo/scripts/provision.sh --user cicddemo deploy
   tags:
     - cicd
 
@@ -127,7 +131,7 @@
   hosts: localhost
   tasks:
     - name: Configure autoscaling on openshift-tasks..
-      shell: oc autoscale dc/tasks --max 5 --min 2 --cpu-percent 80 -n stage-andrew
+      shell: oc autoscale dc/tasks --max 5 --min 2 --cpu-percent 80 -n stage-cicddemo
   tags:
     - hpa
 
@@ -135,7 +139,7 @@
   hosts: localhost
   tasks:
     - name: Create alpha project
-      shell: oc adm new-project alpha
+      shell: oc new-project alpha
     - name: Create beta project
       shell: oc new-project beta
   tags:
@@ -156,11 +160,11 @@
 - name: Generic task to add new users
   hosts: masters
   tasks:
-    - name: "Add user {{ username }}"
+    - name: "Adding user {{ username }}"
       shell: htpasswd -b /etc/origin/master/htpasswd {{ username }} {{ password }} 
-#  when: 
-#    - username.defined 
-#    - password.defined
+      when: 
+        - username.defined 
+        - password.defined
   ignore_errors: true
   tags:
     - add_user
