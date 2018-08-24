@@ -78,7 +78,8 @@
 
 
 - name: Create a user for the CI/CD demo
-  shell: htpasswd -b /root/htpasswd.openshift cicddemo r3dh4t1!
+  tasks:
+    - shell: htpasswd -b /root/htpasswd.openshift cicddemo r3dh4t1!
 
 - name: Setup CI/CD pipeline
   hosts: localhost
