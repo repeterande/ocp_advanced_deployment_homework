@@ -31,7 +31,7 @@ openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 
 openshift_master_htpasswd_file=/root/htpasswd.openshift
 
 # default project node selector
-#osm_default_node_selector='client=common'
+osm_default_node_selector='client=common'
 
 # selector for hosted infra resources
 openshift_hosted_infra_selector="env=infra"
