@@ -78,8 +78,9 @@
 
 
 - name: Create a user for the CI/CD demo
+  hosts: localhost
   tasks:
-    - shell: htpasswd -b /root/htpasswd.openshift cicddemo r3dh4t1!
+    - shell: htpasswd -b /root/htpasswd.openshift demo r3dh4t1!
 
 - name: Setup CI/CD pipeline
   hosts: localhost
@@ -90,7 +91,7 @@
         dest: /root/openshift-cd-demo
         version: ocp-3.9
     - name: Provision the demo environment..
-      shell: /root/openshift-cd-demo/scripts/provision.sh --user cicddemo deploy
+      shell: /root/openshift-cd-demo/scripts/provision.sh --user demo deploy
   tags:
     - cicd
 
@@ -132,7 +133,7 @@
   hosts: localhost
   tasks:
     - name: Configure autoscaling on openshift-tasks..
-      shell: oc autoscale dc/tasks --max 5 --min 2 --cpu-percent 80 -n stage-cicddemo
+      shell: oc autoscale dc tasks --max 5 --min 2 --cpu-percent 80 -n stage-andrew
   tags:
     - hpa
 
