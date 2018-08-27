@@ -91,7 +91,7 @@
         dest: /root/openshift-cd-demo
         version: ocp-3.9
     - name: Provision the demo environment..
-      shell: /root/openshift-cd-demo/scripts/provision.sh --user demo deploy
+      shell: /root/openshift-cd-demo/scripts/provision.sh --user andrew deploy
   tags:
     - cicd
 
