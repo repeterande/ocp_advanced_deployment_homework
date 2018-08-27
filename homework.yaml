@@ -92,6 +92,8 @@
         version: ocp-3.9
     - name: Provision the demo environment..
       shell: /root/openshift-cd-demo/scripts/provision.sh --user andrew deploy
+    - name: Kick off the pipeline
+      shell: "oc start-build tasks-pipeline -n cicd-andrew"
   tags:
     - cicd
 
