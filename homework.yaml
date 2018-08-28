@@ -77,10 +77,10 @@
     - fixnfs
 
 
-- name: Create a user for the CI/CD demo
-  hosts: localhost
-  tasks:
-    - shell: htpasswd -b /root/htpasswd.openshift demo r3dh4t1!
+#- name: Create a user for the CI/CD demo
+#  hosts: localhost
+#  tasks:
+#    - shell: htpasswd -b /root/htpasswd.openshift demo r3dh4t1!
 
 - name: Setup CI/CD pipeline
   hosts: localhost
