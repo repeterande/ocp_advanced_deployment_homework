@@ -77,11 +77,6 @@
     - fixnfs
 
 
-#- name: Create a user for the CI/CD demo
-#  hosts: localhost
-#  tasks:
-#    - shell: htpasswd -b /root/htpasswd.openshift demo r3dh4t1!
-
 - name: Setup CI/CD pipeline
   hosts: localhost
   tasks:
@@ -92,6 +87,14 @@
         version: ocp-3.9
     - name: Provision the demo environment..
       shell: /root/openshift-cd-demo/scripts/provision.sh --user andrew deploy
+  tags:
+    - cicd
+
+- name: Kick off the pipeline
+  hosts: localhost
+  tasks:
+    - name: Wait for the demo environment to fully spin up
+      shell: sleep 60 
     - name: Kick off the pipeline
       shell: "oc start-build tasks-pipeline -n cicd-andrew"
   tags:
@@ -149,23 +152,11 @@
   tags:
     - create_projects
 
-#- name: "Add user to htpasswd file"
-#  hosts: masters
-#  htpasswd:
-#    dest: "/etc/origin/master/htpasswd"
-#    name: "user{{ username }}"
-#    password: "r3dh4t1!"
-#    state: present
-##  when: username.defined
-#  tags: 
-#    - add_user
-
-
 - name: Generic task to add new users
   hosts: masters
   tasks:
-    - name: "Adding user {{ username }}"
-      shell: htpasswd -b /etc/origin/master/htpasswd {{ username }} {{ password }} 
+    - name: Adding user "{{ username }}"
+      shell: htpasswd -b /etc/origin/master/htpasswd "{{ username }} {{ password }}"
       when: 
         - username.defined 
         - password.defined
