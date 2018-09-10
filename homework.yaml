@@ -125,14 +125,6 @@
   tags:
     - smoke-test
 
-- name: HPA configuration on production deployment of openshift-tasks
-  hosts: localhost
-  tasks:
-    - name: Configure autoscaling on openshift-tasks..
-      shell: oc autoscale dc tasks --max 5 --min 2 --cpu-percent 80 -n stage-andrew
-  tags:
-    - hpa
-
 - name: Creation of projects for Alpha and Beta clients
   hosts: localhost
   tasks:
@@ -177,3 +169,10 @@
   tags:
     - cicd
 
+- name: HPA configuration on production deployment of openshift-tasks
+  hosts: localhost
+  tasks:
+    - name: Configure autoscaling on openshift-tasks..
+      shell: oc autoscale dc tasks --max 5 --min 2 --cpu-percent 80 -n stage-andrew
+  tags:
+    - hpa
