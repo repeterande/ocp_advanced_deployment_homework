@@ -90,15 +90,6 @@
   tags:
     - cicd
 
-- name: Kick off the pipeline
-  hosts: localhost
-  tasks:
-    - name: Wait for the demo environment to fully spin up
-      shell: sleep 60 
-    - name: Kick off the pipeline
-      shell: "oc start-build tasks-pipeline -n cicd-andrew"
-  tags:
-    - cicd
 
 - name: Setup project request template
   hosts: localhost 
@@ -175,4 +166,14 @@
 #- name: Assigning labels to the users according to its group
 
 #- name: Setup the environment for Alpha and Beta clients
+
+- name: Kick off the pipeline
+  hosts: localhost
+  tasks:
+    - name: Wait for the demo environment to fully spin up
+      shell: sleep 60 
+    - name: Kick off the pipeline
+      shell: "oc start-build tasks-pipeline -n cicd-andrew"
+  tags:
+    - cicd
 
