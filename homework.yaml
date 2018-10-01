@@ -173,7 +173,7 @@
   hosts: localhost
   tasks:
     - name: Wait for tasks to build
-      shell: sleep 60
+      shell: sleep 200 
     - name: Configure autoscaling on openshift-tasks..
       shell: oc autoscale dc tasks --max 5 --min 2 --cpu-percent 80 -n stage-andrew
   tags:
